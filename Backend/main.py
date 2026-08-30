@@ -5,12 +5,13 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
-from fastapi import FastAPI
+from fastapi import FastAPI, File, Form, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
 from ai_service import generate_scheme_explanation
 from sarvam_service import translate_text
+from document_service import analyze_pdf_with_gemini
 app = FastAPI(title="Government Scheme Assistant")
 
 # Allow React frontend to communicate with FastAPI
@@ -366,6 +367,18 @@ def ai_explain(citizen: Citizen, scheme_id: str):
             "success": False,
             "message": f"AI explanation failed: {str(e)}"
         }
+
+
+@app.post("/documents/analyze")
+async def analyze_document(
+    certificate_type: str = Form(...), document: UploadFile = File(...)
+):
+    """Analyze one PDF in memory; documents and text are never persisted."""
+    if not (document.filename or "").lower().endswith(".pdf"):
+        return {"success": False, "message": "Please upload a PDF document.", "fields": []}
+
+    document_bytes = await document.read()
+    return analyze_pdf_with_gemini(document_bytes, certificate_type)
 
 
 SUPPORTED_TRANSLATION_LANGUAGES = {

@@ -4,6 +4,7 @@ import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile.jsx";
 import Results from "./pages/Results.jsx";
 import Application from "./pages/Application.jsx";
+import { TranslationProvider } from "./i18n.jsx";
 
 const BACK_BY_PAGE = {
   profile: { page: "home", label: "Back to home" },
@@ -37,7 +38,6 @@ const initialFormData = {
 
 function App() {
   const [page, setPage] = useState("home");
-  const [language, setLanguage] = useState("en");
 
   const [formData, setFormData] = useState(initialFormData);
   const [results, setResults] = useState([]);
@@ -215,10 +215,8 @@ function App() {
   }
 
   return (
-    <>
+    <TranslationProvider>
       <Navbar
-        language={language}
-        onLanguageChange={setLanguage}
         onHome={() => setPage("home")}
         onBack={
           back
@@ -229,7 +227,7 @@ function App() {
       />
 
       {screen}
-    </>
+    </TranslationProvider>
   );
 }
 

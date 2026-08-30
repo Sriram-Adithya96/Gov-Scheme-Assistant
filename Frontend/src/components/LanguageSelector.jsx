@@ -9,11 +9,11 @@ const LANGUAGES = [
   { code: 'bn', label: 'Bengali' },
   { code: 'gu', label: 'Gujarati' },
   { code: 'pa', label: 'Punjabi' },
-  { code: 'or', label: 'Odia' },
+  { code: 'od', label: 'Odia' },
   { code: 'as', label: 'Assamese' },
 ]
 
-function LanguageSelector({ value, onChange }) {
+function LanguageSelector({ value, onChange, loading = false }) {
   const selected =
     LANGUAGES.find((language) => language.code === value) ?? LANGUAGES[0]
 
@@ -33,7 +33,7 @@ function LanguageSelector({ value, onChange }) {
         </select>
       </label>
       <p className="language-selector-selected" aria-live="polite">
-        Selected language: {selected.label}
+        {loading ? 'Translating…' : `Selected language: ${selected.label}`}
       </p>
     </div>
   )

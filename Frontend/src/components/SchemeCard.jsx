@@ -1,4 +1,5 @@
 import './SchemeCard.css'
+import { TranslatedText, useTranslation } from '../i18n.jsx'
 
 function SchemeCard({
   scheme,
@@ -7,6 +8,7 @@ function SchemeCard({
   onGetAIExplanation,
   onApply,
 }) {
+  const { t } = useTranslation(['Benefit', 'Match Score & Priority', 'Match Score:', 'Priority:', 'Why you may be eligible', 'No specific reasons available', 'Application Readiness', 'Document Readiness:', 'Missing Documents:', 'Required documents', 'No documents specified', 'AI Explanation', 'AI explanation is based on the available scheme information. Verify final eligibility on the official government portal.', 'Apply Now'])
   if (!scheme) return null
 
   return (
@@ -15,22 +17,22 @@ function SchemeCard({
       <h2 className="scheme-card-name">{scheme.name}</h2>
 
       <div className="scheme-card-block">
-        <h3>Benefit</h3>
+        <h3>{t('Benefit')}</h3>
         <p>{scheme.benefit}</p>
       </div>
 
       <div className="scheme-card-block">
-        <h3>Match Score & Priority</h3>
+        <h3>{t('Match Score & Priority')}</h3>
         <p>
-          <strong>Match Score:</strong> {scheme.match_score}/100
+          <strong>{t('Match Score:')}</strong> {scheme.match_score}/100
         </p>
         <p>
-          <strong>Priority:</strong> {scheme.priority}
+          <strong>{t('Priority:')}</strong> {scheme.priority}
         </p>
       </div>
 
       <div className="scheme-card-block">
-        <h3>Why you may be eligible</h3>
+        <h3>{t('Why you may be eligible')}</h3>
         {scheme.reasons && scheme.reasons.length > 0 ? (
           <ul>
             {scheme.reasons.map((reason, idx) => (
@@ -38,20 +40,20 @@ function SchemeCard({
             ))}
           </ul>
         ) : (
-          <p>No specific reasons available</p>
+          <p>{t('No specific reasons available')}</p>
         )}
       </div>
 
       <div className="scheme-card-block">
-        <h3>Application Readiness</h3>
+        <h3>{t('Application Readiness')}</h3>
         <p>
-          <strong>Document Readiness:</strong>{' '}
+          <strong>{t('Document Readiness:')}</strong>{' '}
           {scheme.application_readiness}%
         </p>
         {scheme.missing_documents &&
           scheme.missing_documents.length > 0 && (
             <div>
-              <strong>Missing Documents:</strong>
+              <strong>{t('Missing Documents:')}</strong>
               <ul>
                 {scheme.missing_documents.map(
                   (doc, idx) => (
@@ -64,7 +66,7 @@ function SchemeCard({
       </div>
 
       <div className="scheme-card-block">
-        <h3>Required documents</h3>
+        <h3>{t('Required documents')}</h3>
         {scheme.documents && scheme.documents.length > 0 ? (
           <ul>
             {scheme.documents.map((document, idx) => (
@@ -72,7 +74,7 @@ function SchemeCard({
             ))}
           </ul>
         ) : (
-          <p>No documents specified</p>
+          <p>{t('No documents specified')}</p>
         )}
       </div>
 
@@ -88,11 +90,9 @@ function SchemeCard({
       {aiExplanation && (
         <div className="scheme-card-block ai-explanation">
           <h3>🤖 AI Explanation</h3>
-          <p>{aiExplanation}</p>
+          <p><TranslatedText text={aiExplanation} /></p>
           <small>
-            AI explanation is based on the available scheme
-            information. Verify final eligibility on the
-            official government portal.
+            {t('AI explanation is based on the available scheme information. Verify final eligibility on the official government portal.')}
           </small>
         </div>
       )}
@@ -114,7 +114,7 @@ function SchemeCard({
           className="scheme-card-apply"
           onClick={onApply}
         >
-          Apply Now
+          {t('Apply Now')}
         </button>
       )}
     </article>

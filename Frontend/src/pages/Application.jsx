@@ -11,8 +11,9 @@ function Application() {
         <p className="application-kicker">Application</p>
         <h1 className="application-title">Upload a supporting certificate</h1>
         <p className="application-lead">
-          Choose a document type and file. Reading is simulated — no file is
-          sent anywhere.
+          Your PDF is processed securely using Gemini AI to identify the
+          document type and extract relevant information. It is not sent to
+          translation services.
         </p>
       </header>
 

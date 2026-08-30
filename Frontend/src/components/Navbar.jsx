@@ -1,21 +1,23 @@
 import LanguageSelector from './LanguageSelector.jsx'
 import './LanguageSelector.css'
 import './Navbar.css'
+import { useTranslation } from '../i18n.jsx'
 
-function Navbar({ language, onLanguageChange, onHome, onBack, backLabel }) {
+function Navbar({ onHome, onBack, backLabel }) {
+  const { t, loading, language, setLanguage } = useTranslation(['Scheme Assistant', 'Translating…', 'Back to home', 'Back to profile', 'Back to results'])
   return (
     <nav className="navbar">
       <div className="navbar-start">
         <button type="button" className="navbar-brand" onClick={onHome}>
-          Scheme Assistant
+          {t('Scheme Assistant')}
         </button>
         {onBack ? (
           <button type="button" className="navbar-back" onClick={onBack}>
-            {backLabel}
+            {t(backLabel)}
           </button>
         ) : null}
       </div>
-      <LanguageSelector value={language} onChange={onLanguageChange} />
+      <LanguageSelector value={language} onChange={setLanguage} loading={loading} />
     </nav>
   )
 }

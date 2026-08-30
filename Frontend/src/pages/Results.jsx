@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import SchemeCard from '../components/SchemeCard.jsx'
 import './Results.css'
+import { useTranslation } from '../i18n.jsx'
 
 const STATES = [
   'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
@@ -40,6 +41,7 @@ function Results({
   onBack,
   citizenProfile,
 }) {
+  const { t } = useTranslation(['Error', 'Go Back', 'Checking eligibility...', 'Finding your schemes', 'Analyzing your profile against government schemes...', 'Eligibility results', 'No schemes found', 'What if?', 'Explore changes', 'Try different details to see how the matching schemes could change. Your original profile and results will not be changed.', 'Annual income', 'Age', 'State', 'Caste / category', 'Occupation', 'Student', 'Farmer', 'Simulating...', 'Simulate', 'Reset Simulation', 'Simulation results', 'Current:', 'Simulation:', 'eligible schemes', 'Newly eligible', 'No longer eligible', 'Remain eligible', 'No newly eligible schemes.', 'No schemes were removed.', 'No schemes remain eligible.', 'Update Profile'])
   const [simulationProfile, setSimulationProfile] = useState(() =>
     createSimulationProfile(citizenProfile)
   )
@@ -106,7 +108,7 @@ function Results({
     return (
       <main className="results">
         <header className="results-header">
-          <h1 className="results-title">Error</h1>
+          <h1 className="results-title">{t('Error')}</h1>
           <p className="results-lead" style={{ color: '#d32f2f' }}>
             {error}
           </p>
@@ -124,7 +126,7 @@ function Results({
             marginLeft: '30px',
           }}
         >
-          Go Back
+          {t('Go Back')}
         </button>
       </main>
     )
@@ -134,10 +136,10 @@ function Results({
     return (
       <main className="results">
         <header className="results-header">
-          <p className="results-kicker">Checking eligibility...</p>
-          <h1 className="results-title">Finding your schemes</h1>
+          <p className="results-kicker">{t('Checking eligibility...')}</p>
+          <h1 className="results-title">{t('Finding your schemes')}</h1>
           <p className="results-lead">
-            Analyzing your profile against government schemes...
+            {t('Analyzing your profile against government schemes...')}
           </p>
         </header>
       </main>
@@ -147,11 +149,11 @@ function Results({
   return (
     <main className="results">
       <header className="results-header">
-        <p className="results-kicker">Eligibility results</p>
+        <p className="results-kicker">{t('Eligibility results')}</p>
         <h1 className="results-title">
           {results.length > 0
             ? `${results.length} scheme${results.length !== 1 ? 's' : ''} you may qualify for`
-            : 'No schemes found'}
+            : t('No schemes found')}
         </h1>
         <p className="results-lead">
           {results.length > 0
@@ -162,52 +164,51 @@ function Results({
 
       <section className="simulation" aria-labelledby="simulation-title">
         <div className="simulation-heading">
-          <p className="results-kicker">What if?</p>
-          <h2 id="simulation-title">Explore changes</h2>
+          <p className="results-kicker">{t('What if?')}</p>
+          <h2 id="simulation-title">{t('Explore changes')}</h2>
           <p>
-            Try different details to see how the matching schemes could change.
-            Your original profile and results will not be changed.
+            {t('Try different details to see how the matching schemes could change. Your original profile and results will not be changed.')}
           </p>
         </div>
 
         <form className="simulation-form" onSubmit={simulate}>
           <div className="simulation-grid">
             <label className="simulation-field">
-              <span>Annual income</span>
+              <span>{t('Annual income')}</span>
               <input type="number" name="income" min="0" step="1000" inputMode="numeric" value={simulationProfile.income} onChange={updateSimulationProfile} required />
             </label>
             <label className="simulation-field">
-              <span>Age</span>
+              <span>{t('Age')}</span>
               <input type="number" name="age" min="0" max="120" inputMode="numeric" value={simulationProfile.age} onChange={updateSimulationProfile} required />
             </label>
             <label className="simulation-field">
-              <span>State</span>
+              <span>{t('State')}</span>
               <select name="state" value={simulationProfile.state} onChange={updateSimulationProfile} required>
                 {STATES.map((state) => <option key={state} value={state}>{state}</option>)}
               </select>
             </label>
             <label className="simulation-field">
-              <span>Caste / category</span>
+              <span>{t('Caste / category')}</span>
               <select name="caste" value={simulationProfile.caste} onChange={updateSimulationProfile} required>
                 {CATEGORIES.map((category) => <option key={category} value={category}>{category}</option>)}
               </select>
             </label>
             <label className="simulation-field">
-              <span>Occupation</span>
+              <span>{t('Occupation')}</span>
               <select name="occupation" value={simulationProfile.occupation} onChange={updateSimulationProfile} required>
                 {OCCUPATIONS.map((occupation) => <option key={occupation} value={occupation}>{occupation}</option>)}
               </select>
             </label>
           </div>
           <div className="simulation-toggles">
-            <label><input type="checkbox" name="student" checked={simulationProfile.student} onChange={updateSimulationProfile} /> Student</label>
-            <label><input type="checkbox" name="farmer" checked={simulationProfile.farmer} onChange={updateSimulationProfile} /> Farmer</label>
+            <label><input type="checkbox" name="student" checked={simulationProfile.student} onChange={updateSimulationProfile} /> {t('Student')}</label>
+            <label><input type="checkbox" name="farmer" checked={simulationProfile.farmer} onChange={updateSimulationProfile} /> {t('Farmer')}</label>
           </div>
           <div className="simulation-actions">
             <button type="submit" className="simulation-submit" disabled={simulationLoading}>
-              {simulationLoading ? 'Simulating...' : 'Simulate'}
+              {simulationLoading ? t('Simulating...') : t('Simulate')}
             </button>
-            <button type="button" className="simulation-reset" onClick={resetSimulation}>Reset Simulation</button>
+            <button type="button" className="simulation-reset" onClick={resetSimulation}>{t('Reset Simulation')}</button>
           </div>
         </form>
 
@@ -215,10 +216,10 @@ function Results({
 
         {simulation && (
           <div className="simulation-results" aria-live="polite">
-            <h3>Simulation results</h3>
+            <h3>{t('Simulation results')}</h3>
             <div className="simulation-counts">
-              <p><strong>Current:</strong> {results.length} eligible schemes</p>
-              <p><strong>Simulation:</strong> {simulation.count} eligible schemes</p>
+              <p><strong>{t('Current:')}</strong> {results.length} {t('eligible schemes')}</p>
+              <p><strong>{t('Simulation:')}</strong> {simulation.count} {t('eligible schemes')}</p>
             </div>
             <p className="simulation-summary">
               {simulation.newlyEligible.length > 0
@@ -226,9 +227,9 @@ function Results({
                 : 'With this change, no additional schemes were found.'}
             </p>
             <div className="simulation-lists">
-              <SchemeList title="Newly eligible" schemes={simulation.newlyEligible} emptyText="No newly eligible schemes." />
-              <SchemeList title="No longer eligible" schemes={simulation.removed} emptyText="No schemes were removed." />
-              <SchemeList title="Remain eligible" schemes={simulation.unchanged} emptyText="No schemes remain eligible." />
+              <SchemeList title={t('Newly eligible')} schemes={simulation.newlyEligible} emptyText={t('No newly eligible schemes.')} />
+              <SchemeList title={t('No longer eligible')} schemes={simulation.removed} emptyText={t('No schemes were removed.')} />
+              <SchemeList title={t('Remain eligible')} schemes={simulation.unchanged} emptyText={t('No schemes remain eligible.')} />
             </div>
             <p className="simulation-notice">This is a simulation based on the information entered. Verify eligibility with the official scheme authority.</p>
           </div>
@@ -253,7 +254,7 @@ function Results({
         </ul>
       ) : (
         <button className="simulation-reset results-update" type="button" onClick={onBack}>
-          Update Profile
+          {t('Update Profile')}
         </button>
       )}
     </main>
