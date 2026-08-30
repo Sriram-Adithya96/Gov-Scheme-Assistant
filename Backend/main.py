@@ -365,3 +365,55 @@ def ai_explain(citizen: Citizen, scheme_id: str):
             "success": False,
             "message": f"AI explanation failed: {str(e)}"
         }
+
+
+@app.post("/translate")
+def translate(text: str, target_language: str = "en"):
+    """
+    Translate text to the target language using Sarvam AI.
+    
+    Supported languages:
+    - en (English)
+    - hi (Hindi)
+    - te (Telugu)
+    - ta (Tamil)
+    - kn (Kannada)
+    - ml (Malayalam)
+    - mr (Marathi)
+    - gu (Gujarati)
+    - bn (Bengali)
+    - pa (Punjabi)
+    - od (Odia)
+    - as (Assamese)
+    """
+    
+    from ai_service import translate_text
+    
+    if not text or not text.strip():
+        return {
+            "success": False,
+            "message": "Text cannot be empty"
+        }
+    
+    if target_language == "en":
+        # No translation needed for English
+        return {
+            "success": True,
+            "original_text": text,
+            "translated_text": text,
+            "target_language": target_language
+        }
+    
+    try:
+        translated = translate_text(text, target_language)
+        return {
+            "success": True,
+            "original_text": text,
+            "translated_text": translated,
+            "target_language": target_language
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"Translation failed: {str(e)}"
+        }

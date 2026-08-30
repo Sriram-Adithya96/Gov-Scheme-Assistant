@@ -207,6 +207,7 @@ function App() {
         error={error}
         onApply={() => setPage("application")}
         onBack={() => setPage("profile")}
+        citizenProfile={formData}
       />
     );
   } else if (page === "application") {
