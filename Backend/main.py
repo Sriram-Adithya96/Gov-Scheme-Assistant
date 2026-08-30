@@ -1,8 +1,15 @@
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
-
+from ai_service import generate_scheme_explanation
 app = FastAPI(title="Government Scheme Assistant")
 
 # Allow React frontend to communicate with FastAPI
@@ -47,6 +54,8 @@ class Citizen(BaseModel):
     has_lpg_connection: bool = False
     unemployed: bool = False
 
+    documents_available: list[str] = []
+
 @app.get("/")
 def home():
     return {
@@ -60,7 +69,64 @@ def get_schemes():
         "count": len(schemes),
         "schemes": schemes
     }
+def calculate_match_score(reasons, scheme):
+    """
+    Calculate a simple priority score for the prototype.
 
+    This is NOT a probability of approval.
+    It represents how strongly the citizen profile
+    matches the information available in our database.
+    """
+
+    score = 0
+
+    # Each satisfied eligibility condition
+    score += len(reasons) * 10
+
+    # Scheme has a defined benefit
+    if scheme.get("benefit"):
+        score += 5
+
+    # Scheme has required documents listed
+    if scheme.get("documents_required"):
+        score += 5
+
+    return min(score, 100)
+
+def calculate_application_readiness(
+    required_documents,
+    available_documents
+):
+    if not required_documents:
+        return {
+            "score": 100,
+            "missing_documents": []
+        }
+
+    available = {
+        document.lower().strip()
+        for document in available_documents
+    }
+
+    matched = 0
+    missing = []
+
+    for document in required_documents:
+        document_clean = document.lower().strip()
+
+        if document_clean in available:
+            matched += 1
+        else:
+            missing.append(document)
+
+    score = round(
+        (matched / len(required_documents)) * 100
+    )
+
+    return {
+        "score": score,
+        "missing_documents": missing
+    }
 
 @app.post("/check-eligibility")
 def check_eligibility(citizen: Citizen):
@@ -219,6 +285,20 @@ def check_eligibility(citizen: Citizen):
 
         else:
             # All conditions passed
+            match_score = calculate_match_score(reasons, scheme)
+
+            if match_score >= 90:
+                priority = "Highly Recommended"
+            elif match_score >= 75:
+                priority = "Recommended"
+            else:
+                priority = "Good Match"
+
+            readiness = calculate_application_readiness(
+                scheme["documents_required"],
+                citizen.documents_available
+            )
+
             eligible_schemes.append({
                 "id": scheme["id"],
                 "name": scheme["name_en"],
@@ -226,10 +306,62 @@ def check_eligibility(citizen: Citizen):
                 "benefit": scheme["benefit"],
                 "documents": scheme["documents_required"],
                 "application_link": scheme["application_link"],
-                "reasons": reasons
+                "reasons": reasons,
+                "match_score": match_score,
+                "priority": priority,
+                "application_readiness": readiness["score"],
+                "missing_documents": readiness["missing_documents"]
             })
 
+    eligible_schemes.sort(
+        key=lambda scheme: scheme["match_score"],
+        reverse=True
+    )
     return {
         "count": len(eligible_schemes),
         "eligible_schemes": eligible_schemes
     }
+
+
+@app.post("/ai/explain")
+def ai_explain(citizen: Citizen, scheme_id: str):
+    """
+    Generate an AI explanation for a specific government scheme.
+    Eligibility itself is still determined by the rule engine.
+    """
+
+    from ai.explanation import get_scheme_by_id
+
+    scheme = get_scheme_by_id(scheme_id)
+
+    if scheme is None:
+        return {
+            "success": False,
+            "message": "Scheme not found"
+        }
+
+    # Convert Citizen model into the format expected
+    # by Friend 1's explanation module.
+    user_data = citizen.model_dump()
+
+    # Friend 1's module expects annual_income.
+    user_data["annual_income"] = user_data.get("income")
+
+    try:
+        explanation = generate_scheme_explanation(
+            user_data,
+            scheme
+        )
+
+        return {
+            "success": True,
+            "scheme_id": scheme_id,
+            "scheme_name": scheme["name_en"],
+            "explanation": explanation
+        }
+
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"AI explanation failed: {str(e)}"
+        }
