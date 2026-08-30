@@ -1,0 +1,67 @@
+.application {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  box-sizing: border-box;
+  padding: 32px 20px 48px;
+  text-align: left;
+}
+
+.application-header,
+.application .doc-upload,
+.application-applied {
+  width: 100%;
+  max-width: 720px;
+}
+
+.application-header {
+  margin-bottom: 28px;
+}
+
+.application-kicker {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.application-title {
+  margin: 10px 0 12px;
+  font-size: 32px;
+  letter-spacing: -0.8px;
+}
+
+.application-lead {
+  max-width: 42ch;
+  font-size: 16px;
+  line-height: 155%;
+}
+
+.application-applied {
+  margin-top: 24px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.application-applied h2 {
+  margin-bottom: 8px;
+}
+
+@media (min-width: 640px) {
+  .application {
+    padding: 48px 40px 64px;
+  }
+
+  .application-title {
+    font-size: 40px;
+    letter-spacing: -1.2px;
+  }
+
+  .application-lead {
+    font-size: 17px;
+  }
+}

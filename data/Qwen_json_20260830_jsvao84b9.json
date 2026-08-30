@@ -1,0 +1,522 @@
+{
+  "schemes": [
+    {
+      "id": "SCH001",
+      "name_en": "PM Kisan Samman Nidhi",
+      "name_hi": "पीएम किसान सम्मान निधि",
+      "category": "Agriculture",
+      "ministry": "Ministry of Agriculture",
+      "benefit": "₹6,000 per year in 3 equal installments",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Farmer"],
+        "special_conditions": ["Must own cultivable land", "Not an income tax payer"]
+      },
+      "documents_required": ["Aadhaar", "Bank Account", "Land Record (Khatauni)"],
+      "application_link": "https://pmkisan.gov.in/"
+    },
+    {
+      "id": "SCH002",
+      "name_en": "PM Awas Yojana - Gramin (PMAY-G)",
+      "name_hi": "पीएम आवास योजना - ग्रामीण",
+      "category": "Housing",
+      "ministry": "Ministry of Rural Development",
+      "benefit": "Financial assistance of ₹1.30 Lakh (plains) / ₹1.39 Lakh (hilly) for house construction",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["SC", "ST", "General", "OBC"],
+        "required_occupation": ["Any"],
+        "special_conditions": ["Must be homeless or live in 0/1 room kutcha house", "SECC 2011 listed preferred"]
+      },
+      "documents_required": ["Aadhaar", "Bank Account", "Job Card / SECC Proof"],
+      "application_link": "https://pmayg.nic.in/"
+    },
+    {
+      "id": "SCH003",
+      "name_en": "Ayushman Bharat (PM-JAY)",
+      "name_hi": "आयुष्मान भारत (पीएम-जेएवाई)",
+      "category": "Healthcare",
+      "ministry": "Ministry of Health",
+      "benefit": "Health insurance cover of ₹5 Lakh per family per year for secondary/tertiary care",
+      "eligibility": {
+        "min_age": 0,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["SC", "ST", "OBC", "General"],
+        "required_occupation": ["Any"],
+        "special_conditions": ["Must be listed in SECC 2011 database", "Not an income tax payer", "No govt employee in family"]
+      },
+      "documents_required": ["Aadhaar", "Ration Card", "SECC Inclusion Proof"],
+      "application_link": "https://pmjay.gov.in/"
+    },
+    {
+      "id": "SCH004",
+      "name_en": "PM SVANidhi",
+      "name_hi": "पीएम स्वनिधि",
+      "category": "Business",
+      "ministry": "Ministry of Housing & Urban Affairs",
+      "benefit": "Working capital loan up to ₹10,000 (1st), ₹20,000 (2nd), ₹50,000 (3rd) with 7% interest subsidy",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Street Vendor", "Hawker"],
+        "special_conditions": ["Must possess Certificate of Vending or Letter of Recommendation from ULB/TVC"]
+      },
+      "documents_required": ["Aadhaar", "Voter ID", "ULB/TVC Certificate", "Bank Passbook"],
+      "application_link": "https://pmsvanidhi.mohua.gov.in/"
+    },
+    {
+      "id": "SCH005",
+      "name_en": "PM Vishwakarma",
+      "name_hi": "पीएम विश्वकर्मा",
+      "category": "Skill & Business",
+      "ministry": "Ministry of MSME",
+      "benefit": "₹15,000 stipend during training, ₹1.5L collateral-free loan, ₹1,500 tool incentive",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Carpenter", "Cobbler", "Blacksmith", "Tailor", "Potter", "Goldsmith"],
+        "special_conditions": ["Must be engaged in traditional family-based trade using hands/tools"]
+      },
+      "documents_required": ["Aadhaar", "Bank Account", "Proof of Traditional Trade"],
+      "application_link": "https://pmvishwakarma.gov.in/"
+    },
+    {
+      "id": "SCH006",
+      "name_en": "Sukanya Samriddhi Yojana (SSY)",
+      "name_hi": "सुकन्या समृद्धि योजना",
+      "category": "Women & Child",
+      "ministry": "Ministry of Finance",
+      "benefit": "High-interest savings scheme for girl child education and marriage",
+      "eligibility": {
+        "min_age": 0,
+        "max_age": 10,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_gender": "Female",
+        "special_conditions": ["Maximum 2 accounts per family (except twins)"]
+      },
+      "documents_required": ["Girl Child Birth Certificate", "Parent Aadhaar", "Passport Photo"],
+      "application_link": "https://www.indiapost.gov.in/"
+    },
+    {
+      "id": "SCH007",
+      "name_en": "PM Matru Vandana Yojana (PMMVY)",
+      "name_hi": "पीएम मातृ वंदना योजना",
+      "category": "Women & Child",
+      "ministry": "Ministry of Women & Child Development",
+      "benefit": "₹5,000 direct benefit transfer in 3 installments for pregnant/lactating mothers",
+      "eligibility": {
+        "min_age": 19,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_gender": "Female",
+        "special_conditions": ["For 1st living child only", "Must be pregnant or lactating"]
+      },
+      "documents_required": ["MCP Card", "Aadhaar", "Bank Account", "Husband's Aadhaar (if available)"],
+      "application_link": "https://pmmvy-cas.nic.in/"
+    },
+    {
+      "id": "SCH008",
+      "name_en": "Post Matric Scholarship - SC",
+      "name_hi": "अनुसूचित जाति उत्तर मैट्रिक छात्रवृत्ति",
+      "category": "Education",
+      "ministry": "Ministry of Social Justice",
+      "benefit": "₹12,000/year (hosteller) or ₹7,000/year (day scholar) for higher education",
+      "eligibility": {
+        "min_age": 15,
+        "max_age": 30,
+        "max_income": 250000,
+        "required_caste": "SC",
+        "required_occupation": ["Student"],
+        "special_conditions": ["Must be studying in Class 11 or above"]
+      },
+      "documents_required": ["Caste Certificate", "Income Certificate", "Previous Marksheet", "Aadhaar"],
+      "application_link": "https://scholarships.gov.in/"
+    },
+    {
+      "id": "SCH009",
+      "name_en": "Post Matric Scholarship - ST",
+      "name_hi": "अनुसूचित जनजाति उत्तर मैट्रिक छात्रवृत्ति",
+      "category": "Education",
+      "ministry": "Ministry of Tribal Affairs",
+      "benefit": "₹12,000/year (hosteller) or ₹7,000/year (day scholar) for higher education",
+      "eligibility": {
+        "min_age": 15,
+        "max_age": 30,
+        "max_income": 250000,
+        "required_caste": "ST",
+        "required_occupation": ["Student"],
+        "special_conditions": ["Must be studying in Class 11 or above"]
+      },
+      "documents_required": ["Tribe Certificate", "Income Certificate", "Previous Marksheet", "Aadhaar"],
+      "application_link": "https://scholarships.gov.in/"
+    },
+    {
+      "id": "SCH010",
+      "name_en": "National Means-cum-Merit Scholarship (NMMS)",
+      "name_hi": "राष्ट्रीय प्रतिभा खोज छात्रवृत्ति",
+      "category": "Education",
+      "ministry": "Ministry of Education",
+      "benefit": "₹12,000 per annum for meritorious students of economically weaker sections",
+      "eligibility": {
+        "min_age": 13,
+        "max_age": 16,
+        "max_income": 150000,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Student"],
+        "special_conditions": ["Must be studying in Class 8 in a govt/govt-aided school", "Must score >=55% in Class 7"]
+      },
+      "documents_required": ["Income Certificate", "Class 7 Marksheet", "School Bonafide Certificate", "Aadhaar"],
+      "application_link": "https://scholarships.gov.in/"
+    },
+    {
+      "id": "SCH011",
+      "name_en": "PM Fasal Bima Yojana (PMFBY)",
+      "name_hi": "पीएम फसल बीमा योजना",
+      "category": "Agriculture",
+      "ministry": "Ministry of Agriculture",
+      "benefit": "Crop insurance against natural calamities, pests, and diseases at low premium (2% Kharif, 1.5% Rabi)",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Farmer"],
+        "special_conditions": ["Must have insurable interest in the notified crop"]
+      },
+      "documents_required": ["Aadhaar", "Land Record", "Bank Account", "Sowing Certificate"],
+      "application_link": "https://pmfby.gov.in/"
+    },
+    {
+      "id": "SCH012",
+      "name_en": "Kisan Credit Card (KCC)",
+      "name_hi": "किसान क्रेडिट कार्ड",
+      "category": "Agriculture",
+      "ministry": "Ministry of Agriculture",
+      "benefit": "Short-term credit for crop cultivation at 4% interest rate (with timely repayment)",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 75,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Farmer", "Sharecropper", "Tenant Farmer"],
+        "special_conditions": ["Must have land record or tenant certificate"]
+      },
+      "documents_required": ["Aadhaar", "Land Record / Tenant Certificate", "Bank Account", "Passport Photo"],
+      "application_link": "https://pmkisan.gov.in/"
+    },
+    {
+      "id": "SCH013",
+      "name_en": "PM Shram Yogi Maan-dhan (PM-SYM)",
+      "name_hi": "पीएम श्रम योगी मान-धन",
+      "category": "Social Welfare",
+      "ministry": "Ministry of Labour",
+      "benefit": "Assured monthly pension of ₹3,000 after attaining 60 years of age",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 40,
+        "max_income": 15000,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Unorganized Worker", "Daily Wage", "Street Vendor", "Domestic Worker"],
+        "special_conditions": ["Monthly income must be <= ₹15,000", "Not covered under EPFO/NPS/ESIC"]
+      },
+      "documents_required": ["Aadhaar", "Bank Account", "Self-Declaration Form"],
+      "application_link": "https://pmsym.gov.in/"
+    },
+    {
+      "id": "SCH014",
+      "name_en": "Indira Gandhi National Old Age Pension (NOAPS)",
+      "name_hi": "इंदिरा गांधी राष्ट्रीय वृद्धावस्था पेंशन",
+      "category": "Social Welfare",
+      "ministry": "Ministry of Rural Development",
+      "benefit": "Monthly pension of ₹300 (60-79 yrs) or ₹500 (80+ yrs)",
+      "eligibility": {
+        "min_age": 60,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Any"],
+        "special_conditions": ["Must belong to BPL family as per state guidelines"]
+      },
+      "documents_required": ["Aadhaar", "BPL Ration Card", "Bank Account", "Age Proof"],
+      "application_link": "https://nrega.nic.in/"
+    },
+    {
+      "id": "SCH015",
+      "name_en": "Indira Gandhi National Widow Pension (IGNWPS)",
+      "name_hi": "इंदिरा गांधी राष्ट्रीय विधवा पेंशन",
+      "category": "Social Welfare",
+      "ministry": "Ministry of Rural Development",
+      "benefit": "Monthly pension of ₹300 (40-79 yrs) or ₹500 (80+ yrs)",
+      "eligibility": {
+        "min_age": 40,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_gender": "Female",
+        "special_conditions": ["Must be a widow", "Must belong to BPL family"]
+      },
+      "documents_required": ["Aadhaar", "BPL Ration Card", "Death Certificate of Husband", "Bank Account"],
+      "application_link": "https://nrega.nic.in/"
+    },
+    {
+      "id": "SCH016",
+      "name_en": "PM Ujjwala Yojana",
+      "name_hi": "पीएम उज्ज्वला योजना",
+      "category": "Women & Child",
+      "ministry": "Ministry of Petroleum",
+      "benefit": "Free LPG connection with first refill and stove",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_gender": "Female",
+        "special_conditions": ["No existing LPG connection in the household", "Must be adult woman"]
+      },
+      "documents_required": ["Aadhaar", "BPL Ration Card / SECC Proof", "Bank Account", "Passport Photo"],
+      "application_link": "https://www.pmuy.gov.in/"
+    },
+    {
+      "id": "SCH017",
+      "name_en": "Stand-Up India",
+      "name_hi": "स्टैंड अप इंडिया",
+      "category": "Business",
+      "ministry": "Ministry of Finance",
+      "benefit": "Bank loan between ₹10 Lakh and ₹1 Crore for greenfield enterprise",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["SC", "ST"],
+        "required_gender": "Female",
+        "special_conditions": ["At least 51% shareholding by SC/ST or Woman borrower"]
+      },
+      "documents_required": ["Caste Certificate", "Project Report", "Identity Proof", "Business Registration"],
+      "application_link": "https://www.standupmitra.in/"
+    },
+    {
+      "id": "SCH018",
+      "name_en": "PM Kaushal Vikas Yojana (PMKVY)",
+      "name_hi": "पीएम कौशल विकास योजना",
+      "category": "Skill",
+      "ministry": "Ministry of Skill Development",
+      "benefit": "Free short-term skill training with certification and placement assistance",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 35,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Unemployed", "School Dropout"],
+        "special_conditions": ["Must have Aadhaar-linked bank account", "Aadhaar mandatory"]
+      },
+      "documents_required": ["Aadhaar", "Bank Account", "Educational Certificate", "Passport Photo"],
+      "application_link": "https://pmkvyofficial.org/"
+    },
+    {
+      "id": "SCH019",
+      "name_en": "PM Jeevan Jyoti Bima Yojana (PMJJBY)",
+      "name_hi": "पीएम जीवन ज्योति बीमा योजना",
+      "category": "Insurance",
+      "ministry": "Ministry of Finance",
+      "benefit": "Life insurance cover of ₹2 Lakh for death due to any reason",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 50,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Any"],
+        "special_conditions": ["Must have savings bank account", "Premium ₹436/year auto-debited"]
+      },
+      "documents_required": ["Aadhaar", "Bank Account", "Nominee Details"],
+      "application_link": "https://jansuraksha.gov.in/"
+    },
+    {
+      "id": "SCH020",
+      "name_en": "PM Suraksha Bima Yojana (PMSBY)",
+      "name_hi": "पीएम सुरक्षा बीमा योजना",
+      "category": "Insurance",
+      "ministry": "Ministry of Finance",
+      "benefit": "Accidental death/disability cover of ₹2 Lakh (full) or ₹1 Lakh (partial)",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 70,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Any"],
+        "special_conditions": ["Must have savings bank account", "Premium ₹20/year auto-debited"]
+      },
+      "documents_required": ["Aadhaar", "Bank Account", "Nominee Details"],
+      "application_link": "https://jansuraksha.gov.in/"
+    },
+    {
+      "id": "SCH021",
+      "name_en": "National Disability Pension (IGNDPS)",
+      "name_hi": "राष्ट्रीय विकलांगता पेंशन",
+      "category": "Social Welfare",
+      "ministry": "Ministry of Rural Development",
+      "benefit": "Monthly pension of ₹300 (18-79 yrs) or ₹500 (80+ yrs)",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Any"],
+        "special_conditions": ["Must have 80% or more disability", "Must belong to BPL family"]
+      },
+      "documents_required": ["UDID Card / Disability Certificate", "BPL Ration Card", "Bank Account", "Aadhaar"],
+      "application_link": "https://nrega.nic.in/"
+    },
+    {
+      "id": "SCH022",
+      "name_en": "PM Mudra Yojana (Shishu)",
+      "name_hi": "पीएम मुद्रा योजना (शिशु)",
+      "category": "Business",
+      "ministry": "Ministry of Finance",
+      "benefit": "Collateral-free loan up to ₹50,000 for micro-enterprises",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 65,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Self-Employed", "Small Business", "Vendor"],
+        "special_conditions": ["For non-farm income generating activities"]
+      },
+      "documents_required": ["Aadhaar", "PAN", "Business Proof / Udyam Registration", "Bank Statement"],
+      "application_link": "https://www.mudra.org.in/"
+    },
+    {
+      "id": "SCH023",
+      "name_en": "Mukhyamantri Ladli Behna Yojana (MP)",
+      "name_hi": "मुख्यमंत्री लाड़ली बहना योजना",
+      "category": "Women & Child",
+      "ministry": "Government of Madhya Pradesh",
+      "benefit": "₹1,250 per month direct benefit transfer to women's bank accounts",
+      "eligibility": {
+        "min_age": 21,
+        "max_age": 60,
+        "max_income": 250000,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_gender": "Female",
+        "special_conditions": ["Must be resident of MP", "Family income < ₹2.5 Lakh", "No family member should be income tax payer or govt employee"]
+      },
+      "documents_required": ["Aadhaar", "Samagra ID", "Bank Account", "Residence Proof"],
+      "application_link": "https://ladlibahan.mp.gov.in/"
+    },
+    {
+      "id": "SCH024",
+      "name_en": "Kanyashree Prakalpa (WB)",
+      "name_hi": "कन्याश्री प्रकल्प",
+      "category": "Women & Child",
+      "ministry": "Government of West Bengal",
+      "benefit": "₹1,000/year (K1) for 13-18 yrs, ₹25,000 one-time (K2) at 18+ if unmarried & in education",
+      "eligibility": {
+        "min_age": 13,
+        "max_age": 19,
+        "max_income": 120000,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_gender": "Female",
+        "special_conditions": ["Must be unmarried", "Must be enrolled in educational institution"]
+      },
+      "documents_required": ["Aadhaar", "Bank Account", "School/College Bonafide", "Age Proof"],
+      "application_link": "https://www.kanyashree.gov.in/"
+    },
+    {
+      "id": "SCH025",
+      "name_en": "Startup India Seed Fund Scheme (SISFS)",
+      "name_hi": "स्टार्टअप इंडिया सीड फंड",
+      "category": "Business",
+      "ministry": "Ministry of Commerce",
+      "benefit": "Up to ₹20 Lakh as grant for proof of concept, or up to ₹50 Lakh as convertible debt",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 100,
+        "max_income": 9999999,
+        "allowed_castes": ["General", "OBC", "SC", "ST"],
+        "required_occupation": ["Entrepreneur"],
+        "special_conditions": ["Startup must be DPIIT recognized", "Idea must be scalable with tech/core IP"]
+      },
+      "documents_required": ["DPIIT Recognition Certificate", "Pitch Deck", "Incorporation Certificate", "PAN"],
+      "application_link": "https://seedfund.startupindia.gov.in/"
+    }
+  ],
+  "mock_users": [
+    {
+      "user_id": "U001",
+      "name": "Ramesh Kumar",
+      "age": 34,
+      "gender": "Male",
+      "caste": "SC",
+      "annual_income": 150000,
+      "occupation": "Farmer",
+      "location": "Rural, Uttar Pradesh",
+      "language": "hi",
+      "documents": ["Aadhaar", "Bank Account", "Land Record", "Caste Certificate"],
+      "family_members": 4
+    },
+    {
+      "user_id": "U002",
+      "name": "Sunita Devi",
+      "age": 42,
+      "gender": "Female",
+      "caste": "OBC",
+      "annual_income": 120000,
+      "occupation": "Street Vendor",
+      "location": "Semi-Urban, Bihar",
+      "language": "hi",
+      "documents": ["Aadhaar", "Voter ID", "ULB Certificate", "Bank Passbook"],
+      "family_members": 5
+    },
+    {
+      "user_id": "U003",
+      "name": "Priya Sharma",
+      "age": 16,
+      "gender": "Female",
+      "caste": "ST",
+      "annual_income": 200000,
+      "occupation": "Student",
+      "location": "Rural, Jharkhand",
+      "language": "hi",
+      "documents": ["Aadhaar", "Tribe Certificate", "Income Certificate", "Class 10 Marksheet"],
+      "family_members": 6
+    },
+    {
+      "user_id": "U004",
+      "name": "Anita Devi",
+      "age": 65,
+      "gender": "Female",
+      "caste": "SC",
+      "annual_income": 30000,
+      "occupation": "Unemployed",
+      "location": "Rural, Rajasthan",
+      "language": "hi",
+      "documents": ["Aadhaar", "BPL Ration Card", "Death Certificate of Husband", "Bank Account"],
+      "family_members": 2,
+      "marital_status": "Widow"
+    },
+    {
+      "user_id": "U005",
+      "name": "Vikram Singh",
+      "age": 28,
+      "gender": "Male",
+      "caste": "General",
+      "annual_income": 180000,
+      "occupation": "Daily Wage",
+      "location": "Urban, Maharashtra",
+      "language": "mr",
+      "documents": ["Aadhaar", "Bank Account"],
+      "family_members": 3
+    }
+  ]
+}
