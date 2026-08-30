@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
 from ai_service import generate_scheme_explanation
+from sarvam_service import translate_text
 app = FastAPI(title="Government Scheme Assistant")
 
 # Allow React frontend to communicate with FastAPI
@@ -367,53 +368,40 @@ def ai_explain(citizen: Citizen, scheme_id: str):
         }
 
 
+SUPPORTED_TRANSLATION_LANGUAGES = {
+    "en-IN", "hi-IN", "te-IN", "ta-IN", "kn-IN", "ml-IN", "mr-IN",
+    "gu-IN", "bn-IN", "pa-IN", "od-IN", "as-IN", "brx-IN", "doi-IN",
+    "kok-IN", "ks-IN", "mai-IN", "mni-IN", "ne-IN", "sa-IN", "sat-IN",
+    "sd-IN", "ur-IN",
+}
+
+
+class TranslationRequest(BaseModel):
+    text: str | None = None
+    # Used by the UI to reduce browser requests. The documented single-text
+    # request remains supported and returns translated_text.
+    texts: list[str] | None = None
+    target_language: str
+
+
 @app.post("/translate")
-def translate(text: str, target_language: str = "en"):
-    """
-    Translate text to the target language using Sarvam AI.
-    
-    Supported languages:
-    - en (English)
-    - hi (Hindi)
-    - te (Telugu)
-    - ta (Tamil)
-    - kn (Kannada)
-    - ml (Malayalam)
-    - mr (Marathi)
-    - gu (Gujarati)
-    - bn (Bengali)
-    - pa (Punjabi)
-    - od (Odia)
-    - as (Assamese)
-    """
-    
-    from ai_service import translate_text
-    
-    if not text or not text.strip():
-        return {
-            "success": False,
-            "message": "Text cannot be empty"
-        }
-    
-    if target_language == "en":
-        # No translation needed for English
-        return {
-            "success": True,
-            "original_text": text,
-            "translated_text": text,
-            "target_language": target_language
-        }
-    
+def translate(request: TranslationRequest):
+    """Translate English user-facing text with Sarvam AI."""
+    if request.target_language not in SUPPORTED_TRANSLATION_LANGUAGES:
+        return {"success": False, "message": "Unsupported target language"}
+
+    requested_texts = request.texts if request.texts is not None else [request.text]
+    if not requested_texts or any(not isinstance(text, str) or not text.strip() for text in requested_texts):
+        return {"success": False, "message": "Text cannot be empty"}
+
     try:
-        translated = translate_text(text, target_language)
-        return {
-            "success": True,
-            "original_text": text,
-            "translated_text": translated,
-            "target_language": target_language
-        }
-    except Exception as e:
-        return {
-            "success": False,
-            "message": f"Translation failed: {str(e)}"
-        }
+        translations = [translate_text(text, request.target_language) for text in requested_texts]
+    except Exception as exc:
+        return {"success": False, "message": f"Translation failed: {str(exc)}"}
+
+    response = {"success": True, "target_language": request.target_language}
+    if request.texts is None:
+        response["translated_text"] = translations[0]
+    else:
+        response["translated_texts"] = translations
+    return response

@@ -1,18 +1,13 @@
 import re
-
-
 def _matches_allowed_value(value, allowed_values):
     """Return whether a value satisfies a scalar/list rule, including Any."""
     if not isinstance(allowed_values, list):
         allowed_values = [allowed_values]
-
     return any(
         str(allowed).lower() == "any"
         or str(value).lower() == str(allowed).lower()
         for allowed in allowed_values
     )
-
-
 def _matches_required_boolean(citizen, eligibility, attribute):
     """Apply required_<attribute> only when that JSON key is present."""
     rule_name = f"required_{attribute}"
@@ -20,8 +15,6 @@ def _matches_required_boolean(citizen, eligibility, attribute):
         rule_name not in eligibility
         or bool(citizen.get(attribute, False)) == eligibility[rule_name]
     )
-
-
 def _matches_dataset_special_conditions(citizen, conditions):
     """Evaluate only special-condition phrases present in the current dataset."""
     for condition in conditions:
