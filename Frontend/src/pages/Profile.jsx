@@ -43,6 +43,7 @@ const STATES = [
 const GENDERS = ['Female', 'Male', 'Other', 'Prefer not to say']
 const CATEGORIES = ['General', 'OBC', 'SC', 'ST', 'EWS']
 const OCCUPATIONS = [
+  
   'Unemployed',
   'Salaried employee',
   'Self-employed',
@@ -73,7 +74,7 @@ function Profile({ onCheckEligibility }) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    onCheckEligibility?.()
+    onCheckEligibility?.(form)
   }
 
   return (
