@@ -91,6 +91,62 @@
   outline-offset: 3px;
 }
 
+.scheme-card-ai {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 8px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1976d2;
+  background: #e3f2fd;
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.scheme-card-ai:hover:not(:disabled) {
+  background: #1976d2;
+  color: white;
+  border-color: #1976d2;
+}
+
+.scheme-card-ai:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.scheme-card-ai:focus-visible {
+  outline: 2px solid #1976d2;
+  outline-offset: 3px;
+}
+
+.ai-explanation {
+  background: #f5f5f5;
+  border-left: 4px solid #1976d2;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 4px;
+}
+
+.ai-explanation h3 {
+  margin-top: 0;
+  color: #1976d2;
+}
+
+.ai-explanation small {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
 @media (min-width: 640px) {
   .scheme-card {
     padding: 24px;
@@ -100,7 +156,8 @@
     font-size: 24px;
   }
 
-  .scheme-card-apply {
+  .scheme-card-apply,
+  .scheme-card-ai {
     width: auto;
     min-width: 160px;
   }

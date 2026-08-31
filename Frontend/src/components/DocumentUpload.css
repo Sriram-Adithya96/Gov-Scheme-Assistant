@@ -52,6 +52,10 @@
   color: var(--text-h);
 }
 
+.doc-upload-status.is-error {
+  color: #a42b2b;
+}
+
 .doc-upload-result {
   padding: 16px;
   border: 1px solid var(--border);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './DocumentUpload.css'
 
 const CERTIFICATE_TYPES = [
@@ -7,89 +7,84 @@ const CERTIFICATE_TYPES = [
   { value: 'other', label: 'Other certificate' },
 ]
 
-const MOCK_EXTRACTED = {
-  income: [
-    { label: 'Full name', value: 'Priya Sharma' },
-    { label: 'Annual income', value: '₹1,80,000' },
-    { label: 'Issuing authority', value: 'Tehsildar, Jaipur' },
-    { label: 'Valid until', value: '31 March 2027' },
-  ],
-  caste: [
-    { label: 'Full name', value: 'Priya Sharma' },
-    { label: 'Category', value: 'OBC' },
-    { label: 'Caste', value: 'Yadav' },
-    { label: 'Certificate number', value: 'RJ/OBC/2024/18421' },
-  ],
-  other: [
-    { label: 'Document type', value: 'Residence certificate' },
-    { label: 'Full name', value: 'Priya Sharma' },
-    { label: 'Address', value: 'Ward 12, Jaipur, Rajasthan' },
-    { label: 'Issued on', value: '12 January 2026' },
-  ],
+const FIELD_LABELS = {
+  full_name: 'Full name',
+  annual_income: 'Annual income',
+  issuing_authority: 'Issuing authority',
+  valid_until: 'Valid until',
+  certificate_number: 'Certificate number',
+  state: 'State',
+  caste: 'Caste',
 }
 
 const STATUS_LABEL = {
   idle: 'Waiting for a file',
-  uploading: 'Uploading…',
-  processing: 'Reading document…',
-  ready: 'Extraction complete (sample data)',
+  processing: 'Analyzing document...',
+  ready: 'Document analyzed successfully.',
 }
 
 function DocumentUpload({ onUseInformation }) {
   const [certificateType, setCertificateType] = useState('income')
   const [fileName, setFileName] = useState('')
   const [status, setStatus] = useState('idle')
+  const [message, setMessage] = useState('')
   const [extracted, setExtracted] = useState(null)
   const [used, setUsed] = useState(false)
-
-  useEffect(() => {
-    if (status !== 'uploading' && status !== 'processing') {
-      return undefined
-    }
-
-    const nextStatus = status === 'uploading' ? 'processing' : 'ready'
-    const delay = status === 'uploading' ? 900 : 1200
-    const timer = window.setTimeout(() => {
-      if (nextStatus === 'ready') {
-        setExtracted(MOCK_EXTRACTED[certificateType])
-      }
-      setStatus(nextStatus)
-    }, delay)
-
-    return () => window.clearTimeout(timer)
-  }, [status, certificateType])
 
   function handleTypeChange(event) {
     setCertificateType(event.target.value)
     setFileName('')
     setStatus('idle')
+    setMessage('')
     setExtracted(null)
     setUsed(false)
   }
 
-  function handleFileChange(event) {
+  async function handleFileChange(event) {
     const file = event.target.files?.[0]
-    if (!file) {
-      return
-    }
+    if (!file) return
 
+    event.target.value = ''
     setFileName(file.name)
     setExtracted(null)
     setUsed(false)
-    setStatus('uploading')
+    setMessage('')
+    setStatus('processing')
+
+    const formData = new FormData()
+    formData.append('certificate_type', certificateType)
+    formData.append('document', file)
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/documents/analyze', {
+        method: 'POST',
+        body: formData,
+      })
+      const data = await response.json()
+      const fields = Object.entries(data.fields || {})
+        .filter(([, value]) => value !== null && value !== '')
+        .map(([key, value]) => ({ label: FIELD_LABELS[key] || key, value }))
+
+      if (!response.ok || !data.success) {
+        setStatus('error')
+        setMessage(data.message || 'Document type could not be verified.')
+        return
+      }
+
+      setExtracted(fields)
+      setStatus('ready')
+      setMessage(data.message || STATUS_LABEL.ready)
+    } catch {
+      setStatus('error')
+      setMessage('Document type could not be verified.')
+    }
   }
 
   function handleUseInformation() {
-    if (!extracted) {
-      return
-    }
+    if (!extracted?.length) return
 
     setUsed(true)
-    onUseInformation?.({
-      certificateType,
-      fileName,
-      fields: extracted,
-    })
+    onUseInformation?.({ certificateType, fileName, fields: extracted })
   }
 
   return (
@@ -98,29 +93,28 @@ function DocumentUpload({ onUseInformation }) {
         <span>Certificate type</span>
         <select value={certificateType} onChange={handleTypeChange}>
           {CERTIFICATE_TYPES.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
+            <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </select>
       </label>
 
       <label className="doc-upload-field">
-        <span>Upload file</span>
+        <span>Upload PDF</span>
         <input
           key={certificateType}
           type="file"
-          accept=".pdf,.jpg,.jpeg,.png"
+          accept="application/pdf,.pdf"
           onChange={handleFileChange}
         />
       </label>
 
       <p className={`doc-upload-status is-${status}`} role="status">
-        {STATUS_LABEL[status]}
+        {status === 'error' ? <strong>Document type could not be verified. </strong> : null}
+        {message || STATUS_LABEL[status]}
         {fileName ? ` · ${fileName}` : ''}
       </p>
 
-      {extracted ? (
+      {extracted?.length ? (
         <div className="doc-upload-result">
           <h3>Extracted information</h3>
           <dl>
@@ -131,12 +125,7 @@ function DocumentUpload({ onUseInformation }) {
               </div>
             ))}
           </dl>
-          <button
-            type="button"
-            className="doc-upload-use"
-            onClick={handleUseInformation}
-            disabled={used}
-          >
+          <button type="button" className="doc-upload-use" onClick={handleUseInformation} disabled={used}>
             {used ? 'Information applied' : 'Use This Information'}
           </button>
         </div>

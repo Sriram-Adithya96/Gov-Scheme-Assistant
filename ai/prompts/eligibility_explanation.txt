@@ -15,17 +15,9 @@ Detailed comparison reasons:
 {{reasons}}
 
 Instructions:
-- Write in clear, respectful, easy-to-understand language.
-- Avoid technical jargon.
-- Explain what matched, what did not match, and what needs further verification.
-- Keep the tone helpful, neutral, and citizen-friendly.
+- Write one concise response of 60 words or fewer.
+- Use plain text only: do not use Markdown, headings, numbering, asterisks, or hashtags.
+- State the likely eligibility result, then mention at most two relevant matched conditions.
+- If verification is needed, name only the most important item to verify.
+- Keep the tone helpful, neutral, and easy to understand.
 - Mention only facts supported by the provided data.
-- If important information is missing, say it politely and clearly.
-- End with a short summary of likely eligibility status.
-
-Response format:
-1. Short overview
-2. Eligibility summary
-3. Key reasons
-4. Missing or unclear information
-5. Final note

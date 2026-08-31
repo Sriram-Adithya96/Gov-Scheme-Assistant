@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './Profile.css'
+import { useTranslation } from '../i18n.jsx'
 
 const STATES = [
   'Andhra Pradesh',
@@ -43,6 +44,7 @@ const STATES = [
 const GENDERS = ['Female', 'Male', 'Other', 'Prefer not to say']
 const CATEGORIES = ['General', 'OBC', 'SC', 'ST', 'EWS']
 const OCCUPATIONS = [
+  
   'Unemployed',
   'Salaried employee',
   'Self-employed',
@@ -65,6 +67,7 @@ const initialForm = {
 
 function Profile({ onCheckEligibility }) {
   const [form, setForm] = useState(initialForm)
+  const { t } = useTranslation(['Citizen profile', 'Your details', 'Fill this in so we can match you with government schemes you may qualify for.', 'Age', 'Annual income', 'State', 'Select state', 'Gender', 'Select gender', 'Caste / category', 'Select category', 'Occupation', 'Select occupation', 'Student', 'Farmer', 'Yes', 'No', 'Check My Eligibility', 'e.g. 28'])
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -73,24 +76,23 @@ function Profile({ onCheckEligibility }) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    onCheckEligibility?.()
+    onCheckEligibility?.(form)
   }
 
   return (
     <main className="profile">
       <header className="profile-header">
-        <p className="profile-kicker">Citizen profile</p>
-        <h1 className="profile-title">Your details</h1>
+        <p className="profile-kicker">{t('Citizen profile')}</p>
+        <h1 className="profile-title">{t('Your details')}</h1>
         <p className="profile-lead">
-          Fill this in so we can match you with government schemes you may
-          qualify for.
+          {t('Fill this in so we can match you with government schemes you may qualify for.')}
         </p>
       </header>
 
       <form className="profile-form" onSubmit={handleSubmit}>
         <div className="profile-grid">
           <label className="profile-field">
-            <span>Age</span>
+            <span>{t('Age')}</span>
             <input
               type="number"
               name="age"
@@ -98,14 +100,14 @@ function Profile({ onCheckEligibility }) {
               max="120"
               inputMode="numeric"
               autoComplete="off"
-              placeholder="e.g. 28"
+              placeholder={t('e.g. 28')}
               value={form.age}
               onChange={handleChange}
             />
           </label>
 
           <label className="profile-field">
-            <span>Annual income</span>
+            <span>{t('Annual income')}</span>
             <input
               type="number"
               name="annualIncome"
@@ -120,9 +122,9 @@ function Profile({ onCheckEligibility }) {
           </label>
 
           <label className="profile-field">
-            <span>State</span>
+            <span>{t('State')}</span>
             <select name="state" value={form.state} onChange={handleChange}>
-              <option value="">Select state</option>
+              <option value="">{t('Select state')}</option>
               {STATES.map((state) => (
                 <option key={state} value={state}>
                   {state}
@@ -132,9 +134,9 @@ function Profile({ onCheckEligibility }) {
           </label>
 
           <label className="profile-field">
-            <span>Gender</span>
+            <span>{t('Gender')}</span>
             <select name="gender" value={form.gender} onChange={handleChange}>
-              <option value="">Select gender</option>
+              <option value="">{t('Select gender')}</option>
               {GENDERS.map((gender) => (
                 <option key={gender} value={gender}>
                   {gender}
@@ -144,9 +146,9 @@ function Profile({ onCheckEligibility }) {
           </label>
 
           <label className="profile-field">
-            <span>Caste / category</span>
+            <span>{t('Caste / category')}</span>
             <select name="caste" value={form.caste} onChange={handleChange}>
-              <option value="">Select category</option>
+              <option value="">{t('Select category')}</option>
               {CATEGORIES.map((category) => (
                 <option key={category} value={category}>
                   {category}
@@ -156,13 +158,13 @@ function Profile({ onCheckEligibility }) {
           </label>
 
           <label className="profile-field">
-            <span>Occupation</span>
+            <span>{t('Occupation')}</span>
             <select
               name="occupation"
               value={form.occupation}
               onChange={handleChange}
             >
-              <option value="">Select occupation</option>
+              <option value="">{t('Select occupation')}</option>
               {OCCUPATIONS.map((occupation) => (
                 <option key={occupation} value={occupation}>
                   {occupation}
@@ -174,7 +176,7 @@ function Profile({ onCheckEligibility }) {
 
         <div className="profile-yesno">
           <fieldset className="profile-choice">
-            <legend>Student</legend>
+            <legend>{t('Student')}</legend>
             <label>
               <input
                 type="radio"
@@ -183,7 +185,7 @@ function Profile({ onCheckEligibility }) {
                 checked={form.student === 'yes'}
                 onChange={handleChange}
               />
-              Yes
+              {t('Yes')}
             </label>
             <label>
               <input
@@ -193,12 +195,12 @@ function Profile({ onCheckEligibility }) {
                 checked={form.student === 'no'}
                 onChange={handleChange}
               />
-              No
+              {t('No')}
             </label>
           </fieldset>
 
           <fieldset className="profile-choice">
-            <legend>Farmer</legend>
+            <legend>{t('Farmer')}</legend>
             <label>
               <input
                 type="radio"
@@ -207,7 +209,7 @@ function Profile({ onCheckEligibility }) {
                 checked={form.farmer === 'yes'}
                 onChange={handleChange}
               />
-              Yes
+              {t('Yes')}
             </label>
             <label>
               <input
@@ -217,13 +219,13 @@ function Profile({ onCheckEligibility }) {
                 checked={form.farmer === 'no'}
                 onChange={handleChange}
               />
-              No
+              {t('No')}
             </label>
           </fieldset>
         </div>
 
         <button type="submit" className="profile-submit">
-          Check My Eligibility
+          {t('Check My Eligibility')}
         </button>
       </form>
     </main>
