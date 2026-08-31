@@ -1,0 +1,444 @@
+/* =====================================================
+   Voice Assistant — styles matching existing light theme
+   ===================================================== */
+
+.va-page {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px 40px;
+  background: #faf9fc;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.va-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.va-kicker {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8b2bd1;
+}
+
+.va-title {
+  margin: 0 0 8px;
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 650;
+  color: #241c2c;
+  line-height: 1.15;
+}
+
+.va-subtitle {
+  margin: 0;
+  font-size: 15px;
+  color: #625a69;
+  line-height: 1.5;
+}
+
+/* ── Card container ─────────────────────────────────── */
+.va-card {
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  border: 1px solid #e9e3ee;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(52, 33, 67, 0.07);
+  padding: 32px 28px;
+  box-sizing: border-box;
+}
+
+/* ── Status badges ─────────────────────────────── */
+.va-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 1px solid transparent;
+}
+
+.va-badge-speaking {
+  color: #8b2bd1;
+  background: #f5ebfc;
+  border-color: #e2cbf5;
+}
+
+.va-badge-listening {
+  color: #c84040;
+  background: #fdf0f0;
+  border-color: #f5c2c2;
+  animation: va-badge-pulse 1.5s infinite;
+}
+
+.va-badge-processing {
+  color: #2b76d1;
+  background: #edf4fe;
+  border-color: #cbe0f5;
+}
+
+.va-badge-waiting {
+  color: #5c5566;
+  background: #f4f3f6;
+  border-color: #e1e0e5;
+}
+
+@keyframes va-badge-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ── Large Mic Button ───────────────────────────────── */
+.va-mic-btn-large {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: none;
+  font-size: 32px;
+  color: #fff;
+  background: #8b2bd1;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(139, 43, 209, 0.35);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.va-mic-btn-large:hover {
+  background: #7422b4;
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(139, 43, 209, 0.45);
+}
+
+.va-mic-btn-large:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.va-mic-btn-large.listening {
+  background: #c84040;
+  box-shadow: 0 0 0 12px rgba(200, 64, 64, 0.2), 0 6px 20px rgba(200, 64, 64, 0.35);
+  animation: va-mic-pulse-anim 1.5s infinite;
+}
+
+@keyframes va-mic-pulse-anim {
+  0% {
+    box-shadow: 0 0 0 0px rgba(200, 64, 64, 0.4), 0 6px 20px rgba(200, 64, 64, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(200, 64, 64, 0), 0 6px 20px rgba(200, 64, 64, 0.35);
+  }
+  100% {
+    box-shadow: 0 0 0 0px rgba(200, 64, 64, 0), 0 6px 20px rgba(200, 64, 64, 0.35);
+  }
+}
+
+/* ── Question & answer area ─────────────────────────── */
+.va-question-area {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.va-assistant-bubble {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.va-avatar {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #f3e8fc;
+  border: 1.5px solid #d4aeef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.va-bubble-text {
+  background: #f6f0fc;
+  border: 1px solid #e5d5f5;
+  border-radius: 0 14px 14px 14px;
+  padding: 14px 18px;
+  font-size: 15.5px;
+  color: #302737;
+  line-height: 1.55;
+  flex: 1;
+}
+
+/* ── Progress ───────────────────────────────────────── */
+.va-progress-bar {
+  width: 100%;
+  height: 5px;
+  background: #ede7f5;
+  border-radius: 99px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.va-progress-fill {
+  height: 100%;
+  background: #8b2bd1;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+/* ── Voice status indicator ─────────────────────────── */
+.va-voice-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #7a6885;
+  padding: 10px 14px;
+  background: #faf6fe;
+  border: 1px solid #e5d8f5;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.va-mic-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c84040;
+  animation: va-pulse 1s ease-in-out infinite;
+}
+
+@keyframes va-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.45; transform: scale(0.75); }
+}
+
+.va-mic-idle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #b0a0c0;
+}
+
+/* ── Text input fallback ────────────────────────────── */
+.va-text-input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.va-text-input {
+  flex: 1;
+  font: inherit;
+  font-size: 15px;
+  color: #302737;
+  background: #fff;
+  border: 1.5px solid #d5c8e5;
+  border-radius: 10px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.18s;
+}
+
+.va-text-input:focus {
+  border-color: #8b2bd1;
+}
+
+.va-text-input::placeholder {
+  color: #b0a2c0;
+}
+
+/* ── Confirmed field tags ───────────────────────────── */
+.va-confirmed-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+  justify-content: center;
+}
+
+.va-field-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #4d2d78;
+  background: #f0e6fc;
+  border: 1px solid #d5b8f2;
+  border-radius: 99px;
+  padding: 4px 12px;
+}
+
+.va-field-tag-check {
+  color: #6d28a3;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ── Action buttons ─────────────────────────────────── */
+.va-btn-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.va-btn {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 9px;
+  padding: 11px 20px;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s;
+}
+
+.va-btn-primary {
+  color: #fff;
+  background: #8b2bd1;
+  border: 1px solid #8b2bd1;
+  box-shadow: 0 4px 10px rgba(103, 42, 145, 0.2);
+}
+
+.va-btn-primary:hover {
+  background: #7422b4;
+  border-color: #7422b4;
+}
+
+.va-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.va-btn-tap-listening {
+  animation: va-pulse-btn 2s infinite;
+}
+
+@keyframes va-pulse-btn {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 10px rgba(103, 42, 145, 0.2);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 6px 14px rgba(103, 42, 145, 0.35);
+  }
+}
+
+
+.va-btn-secondary {
+  color: #7a1cc7;
+  background: #fff;
+  border: 1.5px solid #c48de8;
+}
+
+.va-btn-secondary:hover {
+  background: #f5ebfc;
+}
+
+/* ── Profile summary ────────────────────────────────── */
+.va-summary-title {
+  margin: 0 0 18px;
+  font-size: 18px;
+  font-weight: 650;
+  color: #241c2c;
+  text-align: center;
+}
+
+.va-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.va-summary-field {
+  background: #f8f4fc;
+  border: 1px solid #e5d5f5;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.va-summary-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9b72c2;
+  margin-bottom: 4px;
+}
+
+.va-summary-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #302737;
+}
+
+/* ── Error / info banners ───────────────────────────── */
+.va-error-banner {
+  font-size: 13px;
+  color: #7a2020;
+  background: #fdf0f0;
+  border: 1px solid #f5c2c2;
+  border-radius: 9px;
+  padding: 10px 14px;
+  line-height: 1.5;
+}
+
+.va-info-banner {
+  font-size: 13px;
+  color: #3d2d6e;
+  background: #f0ebfc;
+  border: 1px solid #d5c2f0;
+  border-radius: 9px;
+  padding: 10px 14px;
+  line-height: 1.5;
+}
+
+/* ── Loading spinner ────────────────────────────────── */
+.va-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(139, 43, 209, 0.25);
+  border-top-color: #8b2bd1;
+  border-radius: 50%;
+  animation: va-spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+@keyframes va-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 640px) {
+  .va-page {
+    padding: 28px 14px 32px;
+  }
+
+  .va-card {
+    padding: 22px 16px;
+  }
+
+  .va-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .va-btn-row {
+    flex-direction: column;
+  }
+}

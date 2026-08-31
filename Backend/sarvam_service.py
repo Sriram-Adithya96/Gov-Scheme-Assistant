@@ -43,3 +43,19 @@ def translate_text(text: str, target_language: str) -> str:
     if not translated_text:
         raise RuntimeError("Sarvam AI returned no translated text")
     return translated_text
+
+
+def text_to_speech(text: str, language_code: str = "te-IN") -> str:
+    """Convert text to speech using Sarvam AI and return base64-encoded WAV audio."""
+    if len(text) > 2000:
+        raise ValueError("Text must be 2,000 characters or fewer")
+
+    response = _client().text_to_speech.convert(
+        text=text,
+        model="bulbul:v3",
+        language_code=language_code
+    )
+    audios = getattr(response, "audios", None)
+    if not audios or not isinstance(audios, list):
+        raise RuntimeError("Sarvam AI returned no audio data")
+    return audios[0]

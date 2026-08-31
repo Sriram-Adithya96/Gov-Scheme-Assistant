@@ -1,11 +1,12 @@
 import './Home.css'
 import { useTranslation } from '../i18n.jsx'
 
-function Home({ onFindSchemes }) {
+function Home({ onFindSchemes, onTalkToAssistant }) {
   const translationTexts = [
     'Eligibility & application support', 'Government Scheme Eligibility & Application Assistant',
     'Find government schemes you may qualify for, understand why they match your details, and get clear next steps to apply.',
     'Find My Schemes',
+    'Talk to Assistant',
     'Personalized Matching', 'Find schemes based on your profile.',
     'AI-Powered Explanations', 'Understand why a scheme matches you.',
     'Document Readiness', 'Know what documents you need before applying.',
@@ -45,9 +46,14 @@ function Home({ onFindSchemes }) {
         <p className="home-description">
           {t('Find government schemes you may qualify for, understand why they match your details, and get clear next steps to apply.')}
         </p>
-        <button type="button" className="home-cta" onClick={onFindSchemes}>
-          {t('Find My Schemes')} <span aria-hidden="true">→</span>
-        </button>
+        <div className="home-cta-group">
+          <button type="button" className="home-cta" onClick={onFindSchemes}>
+            {t('Find My Schemes')} <span aria-hidden="true">→</span>
+          </button>
+          <button type="button" className="home-cta-secondary" onClick={onTalkToAssistant}>
+            🎤 {t('Talk to Assistant')}
+          </button>
+        </div>
       </section>
 
       <section className="home-features" aria-label="Assistant benefits">

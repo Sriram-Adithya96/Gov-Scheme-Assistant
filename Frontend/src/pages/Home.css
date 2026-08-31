@@ -74,6 +74,49 @@
   margin-left: 8px;
 }
 
+/* Button group that holds both CTAs */
+.home-cta-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* Override margin on the primary button when inside the group */
+.home-cta-group .home-cta {
+  margin-top: 0;
+}
+
+/* Secondary outlined CTA */
+.home-cta-secondary {
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #8b2bd1;
+  background: #fff;
+  border: 1.5px solid #c48de8;
+  border-radius: 8px;
+  padding: 12px 22px;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.home-cta-secondary:hover {
+  background: #f5ebfc;
+  border-color: #8b2bd1;
+}
+
+.home-cta-secondary:focus-visible {
+  outline: 2px solid #8b2bd1;
+  outline-offset: 3px;
+}
+
 .home-features {
   display: grid;
   grid-template-columns: repeat(5, 1fr);

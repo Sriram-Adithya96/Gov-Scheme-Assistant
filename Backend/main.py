@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
 from ai_service import generate_scheme_explanation
-from sarvam_service import translate_text
+from sarvam_service import translate_text, text_to_speech
 from document_service import analyze_pdf_with_gemini
 app = FastAPI(title="Government Scheme Assistant")
 
@@ -423,3 +423,114 @@ def translate(request: TranslationRequest):
     else:
         response["translated_texts"] = translations
     return response
+
+
+class TTSRequest(BaseModel):
+    text: str
+    language_code: str = "te-IN"
+
+
+@app.post("/tts")
+def tts(request: TTSRequest):
+    """Convert text to speech with Sarvam AI."""
+    if not request.text or not request.text.strip():
+        return {"success": False, "message": "Text cannot be empty"}
+    try:
+        base64_audio = text_to_speech(request.text, request.language_code)
+        return {
+            "success": True,
+            "base64_audio": base64_audio
+        }
+    except Exception as exc:
+        return {"success": False, "message": f"TTS conversion failed: {str(exc)}"}
+
+
+# -------------------------------------------------------------------------
+# VOICE ASSISTANT — profile extraction
+# -------------------------------------------------------------------------
+
+class VoiceExtractRequest(BaseModel):
+    user_input: str
+    language_code: str = "en-IN"
+    field: str          # which field we are currently asking about
+    collected_so_far: dict = {}
+
+
+VALID_STATES = [
+    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
+    "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka",
+    "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya",
+    "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim",
+    "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand",
+    "West Bengal", "Andaman and Nicobar Islands", "Chandigarh",
+    "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Jammu and Kashmir",
+    "Ladakh", "Lakshadweep", "Puducherry",
+]
+
+VALID_OCCUPATIONS = [
+    "Student", "Farmer", "Unemployed", "Salaried employee",
+    "Self-employed", "Daily wage / labour", "Homemaker", "Retired", "Other",
+]
+
+
+@app.post("/ai/voice-extract")
+def voice_extract(request: VoiceExtractRequest):
+    """
+    Use Gemini to extract a citizen-profile field from multilingual voice/text input.
+    The Gemini API key is never sent to the frontend.
+    """
+    try:
+        from ai_service import generate_ai_explanation
+
+        prompt = f"""You are a government scheme assistant helping a citizen fill their profile.
+The citizen spoke in language: {request.language_code}
+They are currently answering the question about their "{request.field}".
+Their input (may be in any Indian language): "{request.user_input}"
+Profile collected so far: {json.dumps(request.collected_so_far)}
+
+Valid states: {json.dumps(VALID_STATES)}
+Valid occupations: {json.dumps(VALID_OCCUPATIONS)}
+
+Extract ONLY the "{request.field}" field from the citizen's input.
+Return a JSON object with ONLY these keys:
+- "extracted": object with the extracted field(s) and their values (use English for string values)
+- "needs_clarification": boolean — true only if the answer is genuinely unclear and you cannot extract the field
+- "clarification_prompt": string in English — only if needs_clarification is true
+
+Rules:
+- For "age": extract an integer (years)
+- For "income": extract an integer (annual rupees; convert lakhs/thousands as needed, e.g. "2 lakh" = 200000)
+- For "state": match to the closest valid state name
+- For "gender": one of "Female", "Male", "Other", "Prefer not to say"
+- For "caste": one of "General", "OBC", "SC", "ST", "EWS"
+- For "occupation": match to closest valid occupation
+- For "student": boolean true/false
+- For "farmer": boolean true/false
+- Never invent data. If truly unclear, set needs_clarification to true.
+- Return ONLY valid JSON, no markdown, no explanation."""
+
+        raw = generate_ai_explanation(prompt)
+
+        # Strip any markdown code fences Gemini might add
+        cleaned = raw.strip()
+        if cleaned.startswith("```"):
+            lines = cleaned.splitlines()
+            lines = [l for l in lines if not l.startswith("```")]
+            cleaned = "\n".join(lines).strip()
+
+        result = json.loads(cleaned)
+        return {"success": True, **result}
+
+    except json.JSONDecodeError:
+        return {
+            "success": False,
+            "needs_clarification": True,
+            "clarification_prompt": "Could you please repeat your answer more clearly?",
+        }
+    except Exception as exc:
+        return {
+            "success": False,
+            "needs_clarification": True,
+            "clarification_prompt": "Sorry, I could not understand that. Please try again.",
+            "error": str(exc),
+        }

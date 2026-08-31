@@ -4,10 +4,12 @@ import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile.jsx";
 import Results from "./pages/Results.jsx";
 import Application from "./pages/Application.jsx";
+import VoiceAssistant from "./pages/VoiceAssistant.jsx";
 import { TranslationProvider } from "./i18n.jsx";
 
 const BACK_BY_PAGE = {
   profile: { page: "home", label: "Back to home" },
+  voice: { page: "home", label: "Back to home" },
   results: { page: "profile", label: "Back to profile" },
   application: { page: "results", label: "Back to results" },
 };
@@ -187,10 +189,18 @@ function App() {
   let screen = (
     <Home
       onFindSchemes={() => setPage("profile")}
+      onTalkToAssistant={() => setPage("voice")}
     />
   );
 
-  if (page === "profile") {
+  if (page === "voice") {
+    screen = (
+      <VoiceAssistant
+        onCheckEligibility={handleCheckEligibility}
+        onBack={() => setPage("home")}
+      />
+    );
+  } else if (page === "profile") {
     screen = (
       <Profile
         onCheckEligibility={handleCheckEligibility}
