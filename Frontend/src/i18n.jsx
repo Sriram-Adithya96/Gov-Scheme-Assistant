@@ -3,7 +3,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 
 // Use the Sarvam-enabled translation service. The existing eligibility API
 // remains on port 8000 and is not changed.
-const API_URL = 'http://127.0.0.1:8001'
+const API_URL = 'http://127.0.0.1:8000'
 const TranslationContext = createContext(null)
 const memoryCache = new Map()
 const inFlight = new Map()
